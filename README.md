@@ -7,8 +7,8 @@
 
 ## Author
 
-[Raghav Anthal](https://github.com/RAGHAV-223)
-[Preet Paul Sharma](https://github.com/NOBODY1819)
+- [Raghav Anthal](https://github.com/RAGHAV-223)
+- [Preet Paul Sharma](https://github.com/NOBODY1819)
 
 ## License
 
