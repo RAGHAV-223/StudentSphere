@@ -1,0 +1,83 @@
+/* styles.css */
+
+/* Reset default margin and padding for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set background color for the entire page */
+body {
+    background-color: powderblue;
+    font-family: Arial, sans-serif;
+}
+
+/* Style the top navigation bar */
+nav {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+/* Style the "Get Started" button */
+.get-started {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+/* Style the main header */
+header {
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Style the three feature columns */
+.features {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+}
+
+.feature {
+    text-align: center;
+    flex: 1;
+    padding: 1rem;
+}
+
+.feature img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Style the footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer ul li {
+    display: inline-block;
+    margin-right: 1rem;
+}
