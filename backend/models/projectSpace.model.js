@@ -13,7 +13,10 @@ const projectSpaceSchema = new mongoose.Schema({
   members: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', // Reference to the User model for members
-    default: [this.createdAt,]
+  }],
+  posts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Posts',
   }],
   createdAt: {
     type: Date,

@@ -1,17 +1,21 @@
 import ProjectSpace from '../models/projectSpace.model.js';
 
-const createProjectSpace = async (req, res) => { // Controller to create new Project Space
+const createProjectSpace = async (req, res) => {
   try {
-    const { name, description, createdBy } = req.body;
-    const newProjectSpace = await ProjectSpace.create({
+    const { name, description } = req.body;
+    const createdBy = req.user._id; // Assume req.user is populated by authentication middleware
+
+    const projectSpace = new ProjectSpace({
       name,
       description,
       createdBy,
+      members: [createdBy], // Add createdBy to members array
     });
-    res.status(201).json(newProjectSpace);
+
+    await projectSpace.save();
+    res.status(201).json({ projectSpace });
   } catch (error) {
-    console.error('Error creating project space:', error.message);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ message: 'Error creating project space', error });
   }
 };
 

@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import './auth.css';
 import { useNavigate } from 'react-router-dom';
+import useSignup from '../hooks/useSignup';
+import toast from 'react-hot-toast';
 
 const Auth = ({ setIsLoggedIn }) => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [loginData, setLoginData] = useState({ username: '', password: '' });
-  const [signupData, setSignupData] = useState({ fullname: '', username: '', email: '', password: '', cpassword: '' });
+  const [signupData, setSignupData] = useState({ fullname: '', username: '', email: '', password: '', confirmpassword: '' });
+  const {loading, signup} = useSignup()
 
   const navigate = useNavigate();
   const handleLoginChange = (event) => {
@@ -32,16 +35,17 @@ const Auth = ({ setIsLoggedIn }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Login failed');
+                  throw new Error('Login failed');
+        
       }
 
       const data = await response.json();
-      console.log(data.token)
-      localStorage.setItem('token', data.token);
+      localStorage.setItem("user", JSON.stringify(data));
       setIsLoggedIn(true);
       navigate('/dashboard'); // or your desired route after login
     } catch (error) {
       console.error('Error logging in:', error);
+      
       // Handle error display
     }
   };
@@ -49,48 +53,9 @@ const Auth = ({ setIsLoggedIn }) => {
 
   const handleSignup = async (event) => {
     event.preventDefault();
-    if (signupData.password !== signupData.cpassword) {
-      console.error('Passwords do not match');
-      return;
-    }
-  
-    try {
-      const response = await fetch('http://localhost:8000/api/auth/sign-up', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          fullname: signupData.fullname,
-          username: signupData.username,
-          email: signupData.email,
-          password: signupData.password,
-          confirmpassword: signupData.cpassword
-        }),
-      });
-  
-      if (!response.ok) 
-      { const errorData = await response.json();
-        console.log(errorData); 
-        if (response.status === 409) {
-          throw new Error(errorData.message);
-        } else if (response.status === 500) {
-          throw new Error(errorData.message);
-        } else {
-          throw new Error(errorData.message);
-        }
-        // Handle the error appropriately
-      }
-  
-      const data = await response.json();
-      localStorage.setItem('token', data.token);
-      setIsLoggedIn(true);
-      navigate('/dashboard'); // or your desired route after login
-    } catch (error) {
-      console.error('Error Signup in:', error.message);
-      // Handle error display
-    }
+    await signup(signupData);
+    setIsLoggedIn(true);
+    navigate('/dashboard')
   };
   
 
@@ -185,9 +150,9 @@ const Auth = ({ setIsLoggedIn }) => {
               <input
                 type="password"
                 placeholder="Confirm Password"
-                id="cpassword"
-                name="cpassword"
-                value={signupData.cpassword}
+                id="confirmpassword"
+                name="confirmpassword"
+                value={signupData.confirmpassword}
                 onChange={handleSignupChange}
                 required
               />
