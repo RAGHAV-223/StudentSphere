@@ -10,6 +10,7 @@ import ContactPage from './components/contact/contact';
 import ThreadDetailPage from './components/threads/threads';
 import Logout from './components/auth/logout';
 import ProjectSpace from './components/projectspace/projectSpace';
+import Profile from './components/profile/profile';
 import LeftDrawer from './drawer';
 
 
@@ -17,14 +18,16 @@ const App = () => {
   const location = useLocation();
   const loginpage = location.pathname === '/login';
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [selectedBadge, setSelectedBadge] = useState('Select a badge');
+  
 
   return (
     <>
     <div className='flex flex-col min-h-screen'>
-      {!loginpage && <Header isLoggedIn={isLoggedIn} />}
+      {!loginpage && <Header selectedBadge={selectedBadge} isLoggedIn={isLoggedIn} />}
       <div className='flex flex-1'>
         {isLoggedIn ? <LeftDrawer /> : ""}
-      <main className="flex-grow p-4">
+      <main className={`${isLoggedIn ? 'ml-60' : ''} flex-grow p-4 left-60`}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Auth setIsLoggedIn={setIsLoggedIn} />} />
@@ -34,7 +37,7 @@ const App = () => {
         <Route path="/threads" element={<ThreadDetailPage />} />
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/projects" element={<ProjectSpace />} />
-        <Route path="/profile" element={<ProjectSpace />} />
+        <Route path="/profile" element={<Profile selectedBadge={selectedBadge} setSelectedBadge={setSelectedBadge} />} />
         
         
         {/* <Route path="/contactUs" element={isLoggedIn ? <Dashboard /> : <Home />} /> */}

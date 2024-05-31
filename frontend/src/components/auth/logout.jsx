@@ -1,23 +1,29 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Logout = ({ setIsLoggedIn }) => {
+const Logout = ({ setIsLoggedIn }) => { 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Clear the token from localStorage
+ useEffect( async () =>{
+  try{
+    const response = await fetch('http://localhost:8000/api/auth/logout',{
+      method:"POST",
+      headers:{
+        'Content-Type': "application/json",
+      },
+      credentials: 'include', 
+
+    });
     localStorage.removeItem('token');
-
-    // Update the logged-in state
     setIsLoggedIn(false);
-
-    // Redirect to the home page
-    navigate('/');
-  }, [navigate, setIsLoggedIn]);
-
+  } catch(error){
+    console.error("hello error", error)
+  }
+  navigate('/');
+ }, [navigate, setIsLoggedIn]);
   return (
     <div>
-      Logging out...
+      Logging out/
     </div>
   );
 };

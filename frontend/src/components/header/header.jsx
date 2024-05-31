@@ -1,8 +1,21 @@
+// src/components/Header.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "./header.css"
+import { FaUserGraduate, FaUserTie, FaUserFriends, FaUserCheck, FaUserAstronaut } from 'react-icons/fa';
+import "./header.css";
 
-const Header = ({ isLoggedIn }) => {
+// Badge icons mapping
+// Badge icons mapping
+const badgeIcons = {
+  Bachelor: FaUserGraduate,
+  Master: FaUserTie,
+  PhD: FaUserFriends,
+};
+
+const Header = ({ isLoggedIn, selectedBadge }) => {
+  const BadgeIcon = selectedBadge ? badgeIcons[selectedBadge] : null;
+
+  
   return (
     <header className="header_section bg-white shadow-md">
       <div className="container mx-auto px-4 py-2">
@@ -57,25 +70,36 @@ const Header = ({ isLoggedIn }) => {
               </li>
             </ul>
           </div>
-          {isLoggedIn ? (<div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="avatar">
-              <div className="w-10 rounded-full hover:ring ring-purple-800 ring-offset-2"> {/* profile icon and logo */} 
-                <img alt="profile" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          {isLoggedIn ? (
+            <div className="flex items-center">
+              <div className="dropdown dropdown-end">
+                <div tabIndex={0} role="button" className="avatar">
+                  <div className="w-10 rounded-full hover:ring ring-purple-800 ring-offset-2">
+                    <img alt="profile" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                  </div>
+                </div>
+                <ul tabIndex={0} className="mt-1 z-[1] p-1 menu menu-sm dropdown-content bg-base-100 rounded-box w-32">
+                  <li>
+                    <Link className="text-[#000] hover:bg-[#5625a1] rounded-box hover:text-[#FFF] no-underline" to="/profile">Profile</Link>
+                  </li>
+                  <li>
+                    <Link className="text-[#000] hover:bg-[#5625a1] rounded-box hover:text-[#FFF] no-underline" to="/:id/setting">Setting</Link>
+                  </li>
+                  <li>
+                    <Link className="text-[#000] hover:bg-[#5625a1] rounded-box hover:text-[#FFF] no-underline" to="/logout">Logout</Link>
+                  </li>
+                </ul>
               </div>
+              {selectedBadge && (
+                <div className="ml-4 flex items-center">
+                  {/* <BadgeIcon className="w-6 h-6 text-yellow-500 mr-2" /> */}
+                  <div className="badge badge-outline bg-[#f7ff5b]">
+                    <p className="text-[#000]">{selectedBadge}</p>
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="badge badge-outline bg-[#f7ff5b]"><p className='text-[#000]'>Gold</p></div>
-            <ul tabIndex={0} className="mt-1 z-[1] p-1 menu menu-sm dropdown-content bg-base-100 rounded-box w-32">
-              <li>
-                <Link  className=" text-[#000] hover:bg-[#5625a1] rounded-box hover:text-[#FFF] no-underline" to="/:id/profile">Profile</Link>
-              </li>
-              <li>
-                <Link className="link text-[#000] hover:bg-[#5625a1] rounded-box hover:text-[#FFF] no-underline" to="/:id/setting">Setting</Link>
-              </li>
-              <li>
-                <Link className="text-[#000] hover:bg-[#5625a1] rounded-box hover:text-[#FFF] no-underline" to="/logout">Logout</Link>
-              </li>
-            </ul>
-          </div>) : ("")}
+          ) : ("")}
         </nav>
       </div>
     </header>
