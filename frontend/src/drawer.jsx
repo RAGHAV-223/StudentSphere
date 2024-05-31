@@ -14,11 +14,11 @@ const LeftDrawer = () => {
               <HiOutlineHome className="h-6 w-6 mr-2" />
               Home
             </Link>
-            <Link to="/forums" className="flex text-[#000] rounded-box items-center  no-underline  py-2 px-4 hover:bg-purple-700 hover:text-[#fff]">
+            <Link to="/threads" className="flex text-[#000] rounded-box items-center  no-underline  py-2 px-4 hover:bg-purple-700 hover:text-[#fff]">
               <HiChatAlt2 className="h-6 w-6 mr-2" />
               Forums
             </Link>
-            <Link to="/projectspace" className="flex text-[#000] rounded-box items-center  no-underline  py-2 px-4 hover:bg-purple-700 hover:text-[#fff]">
+            <Link to="/projects" className="flex text-[#000] rounded-box items-center  no-underline  py-2 px-4 hover:bg-purple-700 hover:text-[#fff]">
               <HiOutlineBriefcase className="h-6 w-6 mr-2" />
               Project Space
             </Link>
