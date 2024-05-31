@@ -10,7 +10,7 @@ import threadRoutes from "./routes/thread.routes.js"
 import connectMongo from "./db/connectMongo.js";
 // import projectRoutes from "./routes/projectspace.routes.js"
 
-dotenv.config()
+dotenv.config({ path: '../.env' })
 
 
 const app = express();

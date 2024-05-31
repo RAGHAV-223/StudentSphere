@@ -63,13 +63,14 @@ export const login = async (req, res) => {
         if (!user || !isPasswordCorrect) {
             return res.status(400).json({error: "Invalid username or password"});
         }
-        generateTokenAndSetCookie(user._id, res);
-
+        const gen_token=generateTokenAndSetCookie(user._id, res);
+        console.log("generated token: ",gen_token)
         res.status(200).json({
             _id: user._id,
             fullName: user.fullName,
             username: user.username,
             email: user.email,
+            token: gen_token
         });
 
     } catch (error) {

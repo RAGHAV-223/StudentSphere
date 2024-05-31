@@ -36,6 +36,7 @@ const Auth = ({ setIsLoggedIn }) => {
       }
 
       const data = await response.json();
+      console.log(data.token)
       localStorage.setItem('token', data.token);
       setIsLoggedIn(true);
       navigate('/dashboard'); // or your desired route after login

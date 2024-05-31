@@ -59,7 +59,6 @@ export const viewThreads = async (req, res) =>  // fetch all threads of a forum
     {
     try {
         let allForums = await Forums.find().populate('title');
-
         // console.log(allForums)
         if (allForums) {
             res.status(200).json({ message: "Threads list", allForums });

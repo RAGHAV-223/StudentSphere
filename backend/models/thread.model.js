@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 const threadSchema = new mongoose.Schema({
     title: { type: String, required: true },
     creatorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    createdAt: { type: Date, default: Date.now },
     messagesIdList: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts', default: [] },], // Array of message references
     files: [{ type: String }], // Add this line
     createdAt: { type: Date, default: Date.now }
