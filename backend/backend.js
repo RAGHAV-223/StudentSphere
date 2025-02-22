@@ -32,6 +32,9 @@ const __dirname = path.dirname(__filename);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
+app.get("/", (req, res) => {
+    res.json({ message: "Hello from Server!" });
+});
 app.use('/api/auth', authRoutes);
 app.use('/api/auth-ed/forums', threadRoutes);
 app.use('/api/auth-ed/user/project-space', projectRoutes);
