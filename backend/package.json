@@ -4,6 +4,7 @@
     "description": "StudentCollabHub is a collaborative platform for students, fostering seamless communication, mentorship, and career development. Connect with peers, share project resources, and engage in meaningful discussions.",
     "main": "backend.js",
     "scripts": {
+        "start": "node backend/backend.js",
         "server": "nodemon backend/backend.js"
     },
     "type": "module",
