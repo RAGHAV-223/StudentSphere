@@ -5,6 +5,20 @@
 ## Requirements
 - in work
 
+## Getting Started
+
+First, run the development server:
+Go to backend directory and on command line run:
+
+```bash
+npm run server
+```
+
+Go to frontend directory and on command line run:
+```bash
+npm run dev
+```
+
 ## Author
 
 - [Raghav Anthal](https://github.com/RAGHAV-223)
