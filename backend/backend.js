@@ -10,13 +10,13 @@ import connectMongo from './db/connectMongo.js';
 import projectRoutes from './routes/projectspace.routes.js'
 
 // Configure dotenv
-dotenv.config({ path: '../.env' });
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 const corsOptions = {
-    origin: "http://localhost:5173", // Frontend's URL
+    origin: "https://student-sphere-frontend.vercel.app", // Frontend's URL
     credentials: true, // Allow cookies to be sent with requests
 };
 
