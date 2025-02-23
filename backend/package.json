@@ -5,7 +5,7 @@
     "main": "backend.js",
     "scripts": {
         "start": "node backend.js",
-        "server": "nodemon backend/backend.js"
+        "server": "nodemon backend.js"
     },
     "type": "module",
     "keywords": [],
