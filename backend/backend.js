@@ -15,16 +15,9 @@ dotenv.config({path: `../.env`});
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = ["https://student-sphere-frontend.vercel.app", "http://localhost:5173"];
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },// Frontend's URL
-    credentials: true, // Allow cookies to be sent with requests
+    origin: "https://student-sphere-frontend.vercel.app",// Frontend's URL
+    credentials: true, 
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
 };
