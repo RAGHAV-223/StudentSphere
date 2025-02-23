@@ -25,7 +25,7 @@ const Auth = ({ setIsLoggedIn }) => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/login', {
+      const response = await fetch(`${window.API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,8 +35,9 @@ const Auth = ({ setIsLoggedIn }) => {
       });
 
       if (!response.ok) {
-                  throw new Error('Login failed');
-        
+        if(response.status === 401)
+        toast.error('Invalid username or password');
+        throw new Error('Login failed due to unaccepted reasons'); 
       }
 
       const data = await response.json();

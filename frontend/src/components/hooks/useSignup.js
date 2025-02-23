@@ -12,7 +12,7 @@ const useSignup = () => {
 
 		setLoading(true);
 		try {
-			const res = await fetch("http://localhost:8000/api/auth/sign-up", {
+			const res = await fetch(`${window.API_BASE_URL}/api/auth/sign-up`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ fullname, username, email, password, confirmpassword }),

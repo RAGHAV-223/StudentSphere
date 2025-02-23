@@ -8,7 +8,7 @@ const Logout = ({ setIsLoggedIn }) => {
   useEffect(() => {
     const logoutUser = async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/auth/logout", {
+        const res = await fetch(`${window.API_BASE_URL}/auth/logout`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
         });
@@ -23,7 +23,6 @@ const Logout = ({ setIsLoggedIn }) => {
         navigate('/');
       } catch (error) {
         console.error("Error in logout: ", error);
-        toast("An error occurred while logging out");
       }
     };
 
