@@ -25,6 +25,8 @@ const corsOptions = {
         }
     },// Frontend's URL
     credentials: true, // Allow cookies to be sent with requests
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 // Middlewares
