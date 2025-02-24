@@ -11,14 +11,17 @@ export const signup = async (req, res) => {
             return res.status(400).json({ error: "Password and Confirm Password don't match" });
         }
 
-        const user = await User.findOne({ username });
-        if (user) {
-            return res.status(402).json({ error: "Username already exists" });
-        }
-
-        const u_email = await User.findOne({ email });
-        if (u_email) {
-            return res.status(403).json({ error: "Email already Registered" });
+        // Check for existing user
+        const existingUser = await User.findOne({
+            $or: [{ username }, { email }],
+        });
+        if (existingUser) {
+            if (existingUser.username === username) {
+                return res.status(400).json({ error: "Username already exists" });
+            }
+            if (existingUser.email === email) {
+                return res.status(400).json({ error: "Email already registered" });
+            }
         }
 
         // Hash Password
@@ -44,7 +47,7 @@ export const signup = async (req, res) => {
                 token: gen_token,
             });
         } else {
-            res.status(404).json({ error: "Invalid User data, User not created" });
+            res.status(400).json({ error: "Invalid User data, User not created" });
         }
 
     } catch (error) {
@@ -58,12 +61,12 @@ export const login = async (req, res) => {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
         if (!user) {
-            return res.status(401).json({ error: "Invalid username " });
+            return res.status(400).json({ error: "Invalid username" });
         }
 
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) {
-            return res.status(405).json({ error: "Invalid password" });
+            return res.status(400).json({ error: "Invalid password" });
         }
 
         const gen_token = generateTokenAndSetCookie(user._id, res);
