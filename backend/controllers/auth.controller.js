@@ -58,30 +58,30 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
     try {
-        const { username, password } = req.body;
+       const { username, password } = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ error: "Username and password are required" });
+        }
         const user = await User.findOne({ username });
         if (!user) {
-            return res.status(400).json({ error: "Invalid username" });
+            return res.status(400).json({ error: "Invalid username or password" });
         }
 
-        const isPasswordCorrect = bcrypt.compare(password, user.password);
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) {
-            return res.status(401).json({ error: "Invalid password" });
+            return res.status(401).json({ error: "Invalid username or password" });
         }
-
-        const gen_token = generateTokenAndSetCookie(user._id, res);
-
+        const token = generateTokenAndSetCookie(user._id, res);
         res.status(200).json({
             _id: user._id,
             fullName: user.fullName,
             username: user.username,
             email: user.email,
-            token: gen_token,
+            token,
         });
-
     } catch (error) {
-        console.log("Error in Login controller: ", error.message);
-        res.status(500).json({ error: error.message });
+        console.error("❌ Error in Login controller:", error); // Clearer error logging
+        res.status(500).json({ error: "Server error. Please try again later." });
     }
 };
 
