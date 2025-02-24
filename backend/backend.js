@@ -16,9 +16,9 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const corsOptions = {
-    origin: "https://student-sphere-frontend.vercel.app",// Frontend's URL
-    credentials: true, 
+    origin: ["https://student-sphere-frontend.vercel.app"],// Frontend's URL
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    credentials: true, 
     allowedHeaders: ["Content-Type", "Authorization"],
 };
 
