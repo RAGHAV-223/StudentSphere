@@ -13,7 +13,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).array('files', 10); // Allow up to 10 files
 
-
 // this file creates threads, forums
 export const createThread = async (req, res) => {
     upload(req, res, async (err) => {
