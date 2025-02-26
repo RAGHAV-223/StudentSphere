@@ -11,15 +11,17 @@ import projectRoutes from './routes/projectspace.routes.js'
 
 
 // Configure dotenv
-dotenv.config({ path: '../.env' });
+dotenv.config({path: `../.env`});
 
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 const corsOptions = {
-    origin: "http://localhost:5173", // Frontend's URL
-    credentials: true, // Allow cookies to be sent with requests
+    origin: "https://student-sphere-frontend.vercel.app",// Frontend's URL
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    credentials: true, 
+    allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 // Middlewares
@@ -34,6 +36,9 @@ const __dirname = path.dirname(__filename);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
+app.get("/", (req, res) => {
+    res.json({ message: "Hello from Server!" });
+});
 app.use('/api/auth', authRoutes);
 app.use('/api/auth-ed/forums', threadRoutes);
 app.use('/api/auth-ed/user/project-space', projectRoutes);
@@ -46,6 +51,7 @@ app.use((err, req, res, next) => {
 
 // Start the server and connect to MongoDB
 app.listen(PORT, () => {
+    console.log("MongoDB URL:", process.env.MONGO_DB_URL);
     connectMongo();
     console.log(`Server is running on port ${PORT}`);
 });

@@ -7,7 +7,7 @@ import "./home.css"
 const Home = () => {
     return (
         <div className='body'>
-            <section className="hero min-h-screen bg-base-200 ">
+            <section className="hero min-h-screen">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6">

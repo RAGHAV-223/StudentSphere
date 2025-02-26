@@ -1,34 +1,36 @@
 import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../context/authcontext';
 
 const Logout = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
+    const { setAuthUser } = useAuthContext();
 
   useEffect(() => {
     const logoutUser = async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/auth/logout", {
+        const res = await fetch(`${window.API_BASE_URL}/api/auth/logout`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({}),
         });
         if (!res.ok) {
-          toast("An error occurred while logging out!");
-          throw new Error("Failed to logout");
+          throw (res.status);
         }
         localStorage.removeItem("user");
         setIsLoggedIn(false);
-        toast("User logged out successfully");
-        // Redirect to the home page
+        setAuthUser(null);
         navigate('/');
+        toast.success("User logged out successfully");
       } catch (error) {
+        toast.error("An error occurred while logging out!");
         console.error("Error in logout: ", error);
-        toast("An error occurred while logging out");
       }
     };
-
+    
     logoutUser();
-  }, [navigate, setIsLoggedIn]);
+  }, []);
 
   return (
     <div>
