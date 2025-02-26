@@ -112,19 +112,22 @@ const Auth = ({ setIsLoggedIn }) => {
 		}
   };
   
-
+ const [showform, setshowform] = useState(true);
   const toggleForm = () => {
     setIsSignIn(!isSignIn);
+    setTimeout(() => {
+      setshowform(!showform);
+    },900);
   };
 
   return (
     <div className={`auth-container ${isSignIn ? '' : 'sign-up-mode'}`}>
       <div className="forms-container">
         <div className="signin-signup">
-          <form action="/login" method="post" className="sign-in-form" onSubmit={handleLogin}>
+          {showform? (<form action="/login" method="post" className="sign-in-form" onSubmit={handleLogin}>
             <h2 className="title">Sign In</h2>
             <div className="input-field">
-              <i className="fas fa-user"></i>
+              <i className="fas fa-circle-user"></i>
               <input
                 type="text"
                 placeholder="Username"
@@ -151,7 +154,8 @@ const Auth = ({ setIsLoggedIn }) => {
               {loading ? (<div className="w-7 h-7 border-4 border-t-transparent border-[#6841a2] rounded-full animate-spin mx-auto"></div>) : 'SIGN IN'}
             </button>
           </form>
-          <form action="/login" method="post" className="sign-up-form" onSubmit={handleSignup}>
+          ) : (
+            <form action="/login" method="post" className="sign-up-form" onSubmit={handleSignup}>
             <h2 className="title">Sign Up</h2>
             <div className="input-field">
               <i className="fas fa-user"></i>
@@ -166,7 +170,7 @@ const Auth = ({ setIsLoggedIn }) => {
               />
             </div>
             <div className="input-field">
-              <i className="fas fa-user"></i>
+            <i class="fa-solid fa-circle-user"></i>
               <input
                 type="text"
                 placeholder="Username"
@@ -178,7 +182,7 @@ const Auth = ({ setIsLoggedIn }) => {
               />
             </div>
             <div className="input-field">
-              <i className="fas fa-user"></i>
+              <i className="fa-solid fa-envelope"></i>
               <input
                 type="text"
                 placeholder="Email"
@@ -217,6 +221,7 @@ const Auth = ({ setIsLoggedIn }) => {
               {loading ? (<div className="w-5 h-5 border-4 border-t-transparent border-[#6841a2] rounded-full animate-spin mx-auto"></div>) : 'Sign Up'}
             </button>
           </form>
+        )}
         </div>
       </div>
       <div className="form-panels-container">
@@ -224,13 +229,9 @@ const Auth = ({ setIsLoggedIn }) => {
           <div className="content">
             <h3>{isSignIn ? "New here?" : "One of us?"}</h3>
             <p>{isSignIn ? "Create your Account." : "Already have an Account"}</p>
-            {isSignIn ? (
-              <button className="btn transparent" id="sign-up-btn" onClick={toggleForm}>
-                Sign Up</button>
-            ) : (
-              <button className="btn transparent" id="sign-up-btn" onClick={toggleForm}>
-                Sign In</button>
-            )}
+            <button className="btn transparent" id="sign-up-btn" onClick={toggleForm}>
+              {isSignIn ? "Sign Up" : "Sign In"}
+              </button>
           </div>
         </div>
       </div>
