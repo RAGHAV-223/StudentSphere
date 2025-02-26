@@ -51,7 +51,6 @@ app.use((err, req, res, next) => {
 
 // Start the server and connect to MongoDB
 app.listen(PORT, () => {
-    console.log("MongoDB URL:", process.env.MONGO_DB_URL);
     connectMongo();
     console.log(`Server is running on port ${PORT}`);
 });
