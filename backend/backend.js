@@ -15,9 +15,8 @@ dotenv.config({path: `../.env`});
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = ["https://student-sphere-frontend.vercel.app", "http://localhost:5173"];
 const corsOptions = {
-    origin: "http://localhost:5173",// Frontend's URL
+    origin: "https://student-sphere-frontend.vercel.app",// Frontend's URL
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true, 
     allowedHeaders: ["Content-Type", "Authorization"],

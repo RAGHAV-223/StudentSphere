@@ -11,14 +11,17 @@ export const signup = async (req, res) => {
             return res.status(400).json({ error: "Password and Confirm Password don't match" });
         }
 
-        const user = await User.findOne({ username });
-        if (user) {
-            return res.status(402).json({ error: "Username already exists" });
-        }
-
-        const u_email = await User.findOne({ email });
-        if (u_email) {
-            return res.status(403).json({ error: "Email already Registered" });
+        // Check for existing user
+        const existingUser = await User.findOne({
+            $or: [{ username }, { email }],
+        });
+        if (existingUser) {
+            if (existingUser.username === username) {
+                return res.status(400).json({ error: "Username already exists" });
+            }
+            if (existingUser.email === email) {
+                return res.status(400).json({ error: "Email already registered" });
+            }
         }
 
         // Hash Password
@@ -44,7 +47,7 @@ export const signup = async (req, res) => {
                 token: gen_token,
             });
         } else {
-            res.status(404).json({ error: "Invalid User data, User not created" });
+            res.status(400).json({ error: "Invalid User data, User not created" });
         }
 
     } catch (error) {
@@ -55,7 +58,10 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
     try {
-        const { username, password } = req.body;
+       const { username, password } = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ error: "Username and password are required" });
+        }
         const user = await User.findOne({ username });
         if (!user) {
             console.log("Invalid username");
@@ -74,12 +80,11 @@ export const login = async (req, res) => {
             fullName: user.fullName,
             username: user.username,
             email: user.email,
-            token: gen_token,
+            token,
         });
-
     } catch (error) {
-        console.log("Error in Login controller: ", error.message);
-        res.status(500).json({ error: error.message });
+        console.error("❌ Error in Login controller:", error); // Clearer error logging
+        res.status(500).json({ error: "Server error. Please try again later." });
     }
 };
 
