@@ -9,8 +9,10 @@ import threadRoutes from './routes/thread.routes.js';
 import connectMongo from './db/connectMongo.js';
 import projectRoutes from './routes/projectspace.routes.js'
 
+
 // Configure dotenv
 dotenv.config({path: `../.env`});
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
