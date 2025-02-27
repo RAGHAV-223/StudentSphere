@@ -11,17 +11,14 @@ export const signup = async (req, res) => {
             return res.status(400).json({ error: "Password and Confirm Password don't match" });
         }
 
-        // Check for existing user
-        const existingUser = await User.findOne({
-            $or: [{ username }, { email }],
-        });
-        if (existingUser) {
-            if (existingUser.username === username) {
-                return res.status(400).json({ error: "Username already exists" });
-            }
-            if (existingUser.email === email) {
-                return res.status(400).json({ error: "Email already registered" });
-            }
+        const user = await User.findOne({ username });
+        if (user) {
+            return res.status(402).json({ error: "Username already exists" });
+        }
+
+        const u_email = await User.findOne({ email });
+        if (u_email) {
+            return res.status(403).json({ error: "Email already Registered" });
         }
 
         // Hash Password
@@ -64,15 +61,13 @@ export const login = async (req, res) => {
         }
         const user = await User.findOne({ username });
         if (!user) {
-            console.log("Invalid username");
             return res.status(401).json({ error: "Invalid username " });
         }
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) {
-            console.log("Invalid password");
             return res.status(405).json({ error: "Invalid password" });
         }
-        console.log("User logged in successfully");
+
         const token = generateTokenAndSetCookie(user._id, res);
 
         res.status(200).json({
@@ -90,7 +85,7 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
     try {
-        //console.log("",req);
+        console.log("",req);
         res.cookie('jwt','', { maxAge: 0 });
         res.status(200).json({ message: "Logged out Successfully." });
     } catch (error) {

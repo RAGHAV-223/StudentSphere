@@ -1,5 +1,10 @@
 {
     "version": 2,
+    "functions": {
+    "api/*": {
+      "maxDuration": 30
+    }
+  },
     "builds": [
       {
         "src": "backend.js",
