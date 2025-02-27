@@ -1,9 +1,4 @@
 
-html, body {
-  overflow: hidden; /* Prevent horizontal scrolling */
-  max-width: 100vw;
-}
-
 .forms-container {
   position: absolute;
   width: 100%;
