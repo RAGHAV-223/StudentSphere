@@ -73,7 +73,7 @@ export const login = async (req, res) => {
             return res.status(405).json({ error: "Invalid password" });
         }
         console.log("User logged in successfully");
-        const gen_token = generateTokenAndSetCookie(user._id, res);
+        const token = generateTokenAndSetCookie(user._id, res);
 
         res.status(200).json({
             _id: user._id,
@@ -90,7 +90,7 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
     try {
-        console.log("",req);
+        //console.log("",req);
         res.cookie('jwt','', { maxAge: 0 });
         res.status(200).json({ message: "Logged out Successfully." });
     } catch (error) {
